@@ -9,18 +9,18 @@ SCENARIO("checking frequency")
 		std::string const testString = "one two two three three three";
         wordParser check = wordParser(testString);
 
-		WHEN("checking f = 1")
+		WHEN("checking frequency of one")
 		{
 	        uint16_t const result = check.frequency("one");
 			REQUIRE(result == 1);
 		}
 
-		AND_WHEN("checking f = 2")
+		AND_WHEN("checking frequency of two")
 		{
 			uint16_t const result = check.frequency("two");
 			REQUIRE(result == 2);
 		}
-		AND_WHEN("checking f = 0 Negative test")
+		AND_WHEN("checking frequency of ten, Negative test")
 		{
 			uint16_t const result = check.frequency("ten");
 			REQUIRE(result == 0);
@@ -35,12 +35,13 @@ SCENARIO("checking word")
 	{
 		std::string const testString = "pizza hotdog pizza nacho hotdog taco burrito taco burrito taco burrito food food";
 		wordParser check = wordParser(testString);
-		std::vector<std::string> wordHolder;
 		WHEN("words with f=1")
 		{
 			auto const results = check.words(1);
 			auto iter = results.first;
 			REQUIRE(*iter == "nacho");
+			++iter;
+			REQUIRE(iter == results.second);
 		}
 		AND_WHEN("words with f=2")
 		{
@@ -54,7 +55,7 @@ SCENARIO("checking word")
 			++iter;
 			REQUIRE(iter == results.second);
 		}
-		AND_WHEN("words with f=10  Negative test")
+		AND_WHEN("words with f=10,  Negative test")
 		{
 			auto const results = check.words(10);
 			REQUIRE(results.first == results.second);
@@ -69,7 +70,6 @@ SCENARIO("checking functions with an empty string")
 	{
 		std::string const testString = "";
 		wordParser check = wordParser(testString);
-
 
 		WHEN("using function frequency")
 		{
