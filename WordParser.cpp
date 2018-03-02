@@ -1,9 +1,9 @@
 #include "wordParser.h"
 
-wordParser::wordParser(std::string t)
+wordParser::wordParser(std::string text)
 {
-	textForFreq = std::stringstream(t);
-	textForWords = std::stringstream(t);
+	textForFreq = std::stringstream(text);
+	textForWords = std::stringstream(text);
 	std::string currentWord;
 
 	while (textForFreq >> currentWord) //Creates map for frequency function
@@ -22,12 +22,12 @@ wordParser::wordParser(std::string t)
 	}
 }
 
-uint16_t wordParser::frequency(std::string w)
+uint16_t wordParser::frequency(std::string word)
 {
-	if (wordsInText.find(w) == wordsInText.end())
+	if (wordsInText.find(word) == wordsInText.end())
 		return 0;
 	else
-		return wordsInText[w];
+		return wordsInText[word];
 }
 
 std::pair<std::vector<std::string>::const_iterator, std::vector<std::string>::const_iterator> 
@@ -36,7 +36,7 @@ std::pair<std::vector<std::string>::const_iterator, std::vector<std::string>::co
 		if (repeatedWords.find(frequency) == repeatedWords.end())
 		{
 			std::vector<std::string> empty;
-			return make_pair(empty.end(), empty.end());
+			return make_pair(empty.begin(), empty.end());
 		}
 		else 
 			return make_pair(repeatedWords[frequency].begin(), repeatedWords[frequency].end());
